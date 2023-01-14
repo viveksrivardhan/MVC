@@ -1,0 +1,90 @@
+Database
+
+
+MVC structure: ( Model View Controller )
+
+Instead of creating all the code in one file, we follow the structure to create the API requests.
+
+Controllers: which will have a function contains business logic which manipulates database
+
+Models: This contains all the schema which we create to connect to db and make collection out of it.
+
+Routes: app.get / is a route and we send some response, we specify the api requests in the routes folder.
+
+https://www.tutorialspoint.com/mvc_framework/mvc_framework_introduction.htm
+https://www.npmjs.com/package/mongoose
+
+SQL: (Intro)
+
+Database is a collection of information.
+We were using excel earlier and the problem is security, data loss and slow.
+
+DBMS - software that needs to be installed that manages the database, it has two parts RDMS and Non-RDMS
+
+Mongo DB  is Non-RDMS.
+SQL is RDMS
+
+What is RDMS and Non-RDMS?
+https://www.mongodb.com/compare/relational-vs-non-relational-databases
+
+
+Created sample db and generated sql table
+
+https://app.dbdesigner.net/designer/schema/new
+￼
+
+Install mysql workbench 
+dev.mysql.com/downloads
+
+MVC:
+Config - url’s password etc, which we don’t want to write in controller
+controllers: business logic
+Models: db related code
+Routes: api end points
+Utils: middle wear code not related to controller.
+Server.js is the main file
+
+DML and DDL
+Create table:  Altering table:   DDL Statements Data definition statements
+Deleting table:  
+
+We need understand how to insert and retrieve data into /from a table
+We need to focus on how to manipulate ( update/fetch/delete) data in table.
+
+Retrieve data:
+
+use testDatabase;
+select * from invoices WHERE client_id>=2;
+
+//get all the payments/invoices where payment method is cash
+select * from clients;
+select * from payment_methods;
+select * from payments;
+select payment_method_id from payment_methods where name="cash";
+select * from payments where payment_method=2;
+select * from invoices where payment_id=8;
+
+// get all the payments where payment is cash (nested queries)
+select * from payments where payment_method=(select payment_method_id from payment_methods where name="cash");
+select * from invoices where invoice_id = (select invoice_id from payments where payment_method=(select payment_method_id from payment_methods where name="cash"));
+
+// get all the clients who have paid in cash
+select * from clients where client_id = (select client_id from payments where payment_method=(select payment_method_id from payment_methods where name="cash"));
+
+//index ( interview question )
+select  * from clients where client_id=2
+//client id  = 2 is in the row number 3
+// client id as an Index : DBMS keeps a has table where they keep the index data
+// hash function %10
+// collision for complex fetch
+
+// aggregate functions: sum, count
+select  count(*) from clients;
+
+
+
+
+
+
+
+
